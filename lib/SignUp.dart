@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'HomePage.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -8,6 +9,20 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String name, email, password;
+  GlobalKey<FormState> _key = new GlobalKey();
+
+  _submitButton() {
+    _key.currentState.save();
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(
+                  name = name,
+                  email = email,
+                  password = password,
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +31,7 @@ class _SignUpState extends State<SignUp> {
         title: Text('SignUp Page'),
       ),
       body: Container(
+        key: _key,
         margin: EdgeInsets.all(20.0),
         child: Center(
           child: SingleChildScrollView(
@@ -101,7 +117,9 @@ class _SignUpState extends State<SignUp> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         color: Colors.red,
-                        onPressed: () {},
+                        onPressed: () {
+                          _submitButton;
+                        },
                         child: Text(
                           'Submit',
                           style: TextStyle(
