@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Categories.dart';
 import 'HomePage.dart';
+import 'SignUp.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: HomePage(),
+      home: SignUp(),
       routes: <String, WidgetBuilder>{
         "\Categories": (BuildContext context) => Categories(),
       },
