@@ -9,19 +9,26 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String name, email, password;
+  bool _autoValidate = false;
   GlobalKey<FormState> _key = new GlobalKey();
 
   _submitButton() {
-    _key.currentState.save();
+    if (_key.currentState.validate()) {
+      _key.currentState.save();
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(
-                  name = name,
-                  email = email,
-                  password = password,
-                )));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    name: name,
+                    email: email,
+                    password: password,
+                  )));
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
   }
 
   @override
@@ -59,14 +66,9 @@ class _SignUpState extends State<SignUp> {
                       ListTile(
                         leading: Icon(Icons.person),
                         title: TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Enter Name';
-                            }
-                            return 'Nice';
-                          },
+                          validator: (input) {},
                           decoration: InputDecoration(
-                            hintText: "Enter Name",
+                            //hintText: "Enter Name",
                             labelText: 'Name',
                           ),
                           onSaved: (input) => name = input,
@@ -79,7 +81,6 @@ class _SignUpState extends State<SignUp> {
                             if (input.isEmpty) {
                               return "Enter Email";
                             }
-                            return "Nice";
                           },
                           decoration: InputDecoration(
                             labelText: "Email",
@@ -99,7 +100,6 @@ class _SignUpState extends State<SignUp> {
                             if (input.isEmpty) {
                               return "Enter Password";
                             }
-                            return "Nice";
                           },
                           decoration: InputDecoration(
                             hintText: "Enter Password",
@@ -111,21 +111,21 @@ class _SignUpState extends State<SignUp> {
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),
                       ),
-                      RaisedButton(
-                        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        color: Colors.red,
-                        onPressed: () {
-                          _submitButton;
-                        },
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                      ButtonTheme(
+                        child: RaisedButton(
+                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Colors.red,
+                          onPressed: _submitButton,
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

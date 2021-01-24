@@ -14,9 +14,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: SignUp(),
+      home: HomePage(),
       routes: <String, WidgetBuilder>{
         "\Categories": (BuildContext context) => Categories(),
+        "signup": (BuildContext context) => SignUp(),
       },
     );
   }

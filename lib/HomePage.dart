@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:drawer_application/SignUp.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+// class HomePage extends StatefulWidget {
+//   @override
+//   HomePageState createState() => HomePageState();
+// }
 
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
+  final String name, email, password;
+
+  HomePage({
+    Key key,
+    @required this.name,
+    this.email,
+    this.password,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +44,14 @@ class _HomePageState extends State<HomePage> {
               trailing: Icon(Icons.add_a_photo),
             ),
             ListTile(
-              title: Text('Option 1'),
-              trailing: Icon(Icons.add_a_photo),
-            ),
-            ListTile(
               title: Text('Categories'),
               trailing: Icon(Icons.category_rounded),
               onTap: () => Navigator.of(context).pushNamed("Categories"),
+            ),
+            ListTile(
+              title: Text('Log Out'),
+              trailing: Icon(Icons.logout),
+              onTap: () => Navigator.of(context).pushNamed("signup"),
             ),
             ListTile(
               title: Text('Close'),
